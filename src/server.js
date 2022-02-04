@@ -5,6 +5,8 @@ import { json, urlencoded } from "body-parser";
 import postRouter from "./post/post-router";
 import userRouter from "./user/user-router";
 import { connect } from "./util/database";
+import cors from "cors";
+
 
 
 //setting up the express server
@@ -15,6 +17,7 @@ const router = express.Router();
 
 
 //Bind application-level middleware to an instance of the app object by using the app.use()
+app.use(cors());
 app.use(morgan('dev'));
 app.use(json());
 app.use(urlencoded({extended:true}));      
