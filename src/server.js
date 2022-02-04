@@ -6,7 +6,7 @@ import postRouter from "./post/post-router";
 import userRouter from "./user/user-router";
 import { connect } from "./util/database";
 import cors from "cors";
-
+import { register, protect, login } from "./util/authentication";
 
 
 //setting up the express server
@@ -30,11 +30,16 @@ const customLogger = (req, res, next) => {
     next();
 }
 
+app.use('/api', protect);
+
 
 //with the help of router object, it redirects different URLs/requests accordingly 
 app.use('/api/post',postRouter);       //if we get any URL like this, we will be redirected to /post/post-router
 app.use('/api/user',userRouter);       //if we get any URL like this, we will be redirected to /user/user-router
 
+
+app.post('/signup', register);
+app.post('/signin', login);
 
 
 //demo get and post methods
